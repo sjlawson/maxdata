@@ -1,6 +1,7 @@
 from django.db import models
 from pandas import DataFrame
 
+
 class Artist(models.Model):
     name = models.CharField(max_length=1000)
     export_date = models.PositiveBigIntegerField()

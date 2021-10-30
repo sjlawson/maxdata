@@ -24,7 +24,7 @@ def create_artist(**kwargs):
 def create_genre(**kwargs):
     defaults = {
         "name": faker.music_genre(),
-        "parent": None,
+        "parent_id": None,
         "export_date": int(time()),
     }
     if kwargs:
@@ -46,7 +46,9 @@ class ModelCreationTests(TestCase):
     def test_create_genre_artist(self):
         artist = create_artist()
         genre = create_genre()
-        genre_artist = GenreArtist.objects.create(genre=genre, artist=artist)
+        genre_artist = GenreArtist.objects.create(genre_id=genre.id, artist_id=artist.id)
         self.assertTrue(isinstance(genre_artist, GenreArtist))
-        self.assertEqual(genre_artist.genre.name, genre.__unicode__())
-        self.assertEqual(genre_artist.artist.name, artist.__unicode__())
+
+        # I had these fk relationships setup, but the constraint prevents importing.
+        # self.assertEqual(genre_artist.genre.name, genre.__unicode__())
+        # self.assertEqual(genre_artist.artist.name, artist.__unicode__())

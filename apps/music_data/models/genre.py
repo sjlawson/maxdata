@@ -11,7 +11,7 @@ class Genre(models.Model):
     #     blank=True,
     #     db_constraint=False
     # )
-    parent_id = models.IntegerField(null=True)
+    parent_id = models.IntegerField(null=True, default=None)
     name = models.CharField(max_length=200)
     export_date = models.PositiveBigIntegerField()
 
@@ -27,3 +27,13 @@ class Genre(models.Model):
         Genre.objects.bulk_create(
             Genre(**vals) for vals in df.to_dict('records')
         )
+
+    @property
+    def parent(self):
+        if self.parent_id:
+            return Genre.objects.filter(id=self.parent_id).first()
+        return None
+
+    @property
+    def artists(self):
+        pass

@@ -28,7 +28,8 @@ def read_max_csv(filename):
 
         df = pd.read_csv(f, skiprows=row_count, sep=chr(1), names=headers)
         df.iloc[:,-1:] = df.iloc[:,-1:].apply(lambda s: s.str.rstrip(chr(2)))
-        return pk, df
+        df.fillna(0, inplace=True)
+        return pk, df[~df['export_date'].astype(str).str.contains('#')]
 
 
 def get_model_by_pk(pk):
