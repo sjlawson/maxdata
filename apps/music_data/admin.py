@@ -16,5 +16,5 @@ class GenreAdmin(admin.ModelAdmin):
 
 @admin.register(models.GenreArtist)
 class GenreArtistAdmin(admin.ModelAdmin):
-    list_display = ("genre", "artist", "is_primary")
-    search_fields = ("genre", "artist", "is_primary")
+    list_display = ("genre_id", "artist_id", "is_primary")
+    search_fields = ("genre_id", "artist_id", "is_primary")
