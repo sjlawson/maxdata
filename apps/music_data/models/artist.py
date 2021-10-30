@@ -1,5 +1,6 @@
 from django.db import models
-from pandas import DataFrame
+from django.db import IntegrityError
+from django.db import transaction
 
 
 class Artist(models.Model):
@@ -17,8 +18,17 @@ class Artist(models.Model):
         ordering = ['name']
 
     @staticmethod
-    def import_from_csv_dataframe(df:DataFrame):
+    def import_from_csv_dataframe(df):
         df.rename(columns={'artist_id': 'id'}, inplace=True)
-        Artist.objects.bulk_create(
-            Artist(**vals) for vals in df.to_dict('records')
-        )
+        objs = [Artist(**vals) for vals in df.to_dict('records')]
+        try:
+            # best case - no dups, bul create
+            with transaction.atomic():
+                Artist.objects.bulk_create(objs)
+        except IntegrityError:
+            # must have been a dup, so try serial insertion
+            for obj in objs:
+                try:
+                    obj.save()
+                except IntegrityError:
+                    continue

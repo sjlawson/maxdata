@@ -1,4 +1,6 @@
 from django.db import models
+from django.db import IntegrityError
+from django.db import transaction
 
 
 class GenreArtist(models.Model):
@@ -17,13 +19,20 @@ class GenreArtist(models.Model):
 
     class Meta:
         db_table = 'genre_artist'
+        unique_together = ['genre_id', 'artist_id']
 
     @staticmethod
     def import_from_csv_dataframe(df):
-        df.rename(columns={'artist_id': 'id'}, inplace=True)
-        GenreArtist.objects.bulk_create(
-            GenreArtist(**vals) for vals in df.to_dict('records')
-        )
+        objs = [GenreArtist(**vals) for vals in df.to_dict('records')]
+        try:
+            with transaction.atomic():
+                GenreArtist.objects.bulk_create(objs)
+        except IntegrityError:
+            for obj in objs:
+                try:
+                    obj.save()
+                except IntegrityError:
+                    continue
 
     # @property
     # def artist(self):

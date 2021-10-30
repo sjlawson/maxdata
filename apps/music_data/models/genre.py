@@ -1,6 +1,6 @@
 from django.db import models
-from pandas import DataFrame
-
+from django.db import IntegrityError
+from django.db import transaction
 
 class Genre(models.Model):
     # parent = models.ForeignKey(
@@ -23,11 +23,20 @@ class Genre(models.Model):
         ordering = ['name']
 
     @staticmethod
-    def import_from_csv_dataframe(df:DataFrame):
+    def import_from_csv_dataframe(df):
         df.rename(columns={'genre_id': 'id'}, inplace=True)
-        Genre.objects.bulk_create(
-            Genre(**vals) for vals in df.to_dict('records')
-        )
+        objs = [Genre(**vals) for vals in df.to_dict('records')]
+        try:
+            with transaction.atomic():
+                Genre.objects.bulk_create(objs)
+        except IntegrityError:
+            for obj in objs:
+                try:
+                    obj.save()
+                except IntegrityError:
+                    obj.delete()
+                    continue
+
 
     @property
     def parent(self):
