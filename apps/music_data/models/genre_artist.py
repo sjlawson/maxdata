@@ -15,6 +15,9 @@ class GenreArtist(models.Model):
     #     db_constraint=False
     # )
 
+    class Meta:
+        db_table = 'genre_artist'
+
     @staticmethod
     def import_from_csv_dataframe(df):
         df.rename(columns={'artist_id': 'id'}, inplace=True)

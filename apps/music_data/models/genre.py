@@ -19,7 +19,8 @@ class Genre(models.Model):
         return self.name
 
     class Meta:
-        ordering = ["name"]
+        db_table = 'genres'
+        ordering = ['name']
 
     @staticmethod
     def import_from_csv_dataframe(df:DataFrame):
