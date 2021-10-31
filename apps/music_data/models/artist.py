@@ -29,6 +29,7 @@ class Artist(models.Model):
             # must have been a dup, so try serial insertion
             for obj in objs:
                 try:
-                    obj.save()
+                    with transaction.atomic():
+                        obj.save()
                 except IntegrityError:
                     continue
