@@ -25,24 +25,83 @@ class MAXQueryTests(TestCase):
 
     def test_get_artists_by_genre(self):
         artists = get_artists_by_genre(2)
-        self.assertEqual(artists[0]['name'],'Charles Foxx')
+        result_set = [{'name': _['name']} for _ in artists]
+        expected = [{'name': 'Charles Foxx'}, {'name': 'Charles Luke'}]
+        self.assertCountEqual(result_set, expected)
 
     def test_get_artists_ordered_by_genre_count(self):
         artists = get_artists_ordered_by_genre_count()
-        from jpprint import jpprint
-        jpprint(artists)
+        self.assertEqual(artists[0]['genre_count'], 2)
 
     def test_get_genres_ordered_by_artist_count(self):
         res = get_genres_ordered_by_artist_count()
-        from jpprint import jpprint
-        jpprint(res)
+        expected = [
+            {
+                "artist_count": 2,
+                "export_date": 1625549384231,
+                "id": 2,
+                "name": "Blues",
+                "parent_id": 34
+            },
+            {
+                "artist_count": 1,
+                "export_date": 1625549384231,
+                "id": 37,
+                "name": "Tones",
+                "parent_id": 0
+            }
+        ]
+        self.assertCountEqual(res, expected)
 
     def test_get_orphan_artists(self):
         artists = get_orphan_artists()
-        from jpprint import jpprint
-        jpprint(artists)
+        expected = [
+            {
+                "artist_type_id": 1,
+                "export_date": 1625549384231,
+                "id": 313091,
+                "is_actual_artist": True,
+                "name": "Walter Melrose",
+                "view_url": "https://itunes.apple.com/artist/walter-melrose/id313091?uo=5"
+            },
+            {
+                "artist_type_id": 1,
+                "export_date": 1625549384231,
+                "id": 313592,
+                "is_actual_artist": True,
+                "name": "Susanne Norin",
+                "view_url": "https://itunes.apple.com/artist/susanne-norin/id313592?uo=5"
+            }
+        ]
+        self.assertCountEqual(artists, expected)
+
 
     def test_get_orphan_genres(self):
         genres = get_orphan_genres()
-        from jpprint import jpprint
-        jpprint(artists)
+        expected = [
+            {
+                "export_date": 1625549384231,
+                "id": 27,
+                "name": "J-Pop",
+                "parent_id": 34
+            },
+            {
+                "export_date": 1625549384231,
+                "id": 28,
+                "name": "Enka",
+                "parent_id": 34
+            },
+            {
+                "export_date": 1625549384231,
+                "id": 29,
+                "name": "Anime",
+                "parent_id": 34
+            },
+            {
+                "export_date": 1625549384231,
+                "id": 38,
+                "name": "eBooks",
+                "parent_id": 0
+            }
+        ]
+        self.assertCountEqual(genres, expected)

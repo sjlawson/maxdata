@@ -31,4 +31,4 @@ class ImportTests(TestCase):
         model = get_model_by_pk(pk)
         model.import_from_csv_dataframe(df)
         records = GenreArtist.objects.count()
-        self.assertEqual(records, 4)
+        self.assertEqual(records, 5)

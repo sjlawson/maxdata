@@ -46,7 +46,7 @@ def get_artists_ordered_by_genre_count(limit=None, offset=None):
     SELECT a.*, count(g.id) AS genre_count
     FROM artists a INNER JOIN genre_artist ga ON a.id = ga.artist_id
     INNER JOIN genres g ON ga.genre_id = g.id
-    GROUP BY g.id ORDER BY genre_count DESC
+    GROUP BY a.id ORDER BY genre_count DESC
     """
     if limit:
         sql += ' LIMIT %s'
@@ -61,9 +61,9 @@ def get_artists_ordered_by_genre_count(limit=None, offset=None):
 def get_genres_ordered_by_artist_count():
     sql = """
     SELECT g.*, count(a.id) AS artist_count FROM genres g
-    INNER JOIN genre_artist ga ON g.id = ga.genre_id
+    LEFT JOIN genre_artist ga ON g.id = ga.genre_id
     INNER JOIN artists a ON a.id = ga.artist_id
-    GROUP BY a.id ORDER BY artist_count DESC
+    GROUP BY g.id ORDER BY artist_count DESC
     """
     with connection.cursor() as cursor:
         cursor.execute(sql)
@@ -72,7 +72,7 @@ def get_genres_ordered_by_artist_count():
 
 def get_orphan_genres():
     sql = """
-    SELECT g.*, ga.id FROM genres g
+    SELECT g.* FROM genres g
     LEFT JOIN genre_artist ga ON g.id = ga.genre_id
     WHERE ga.id IS NULL
     """
@@ -83,7 +83,7 @@ def get_orphan_genres():
 
 def get_orphan_artists():
     sql = """
-    SELECT a.*, ga.id FROM artists a
+    SELECT a.* FROM artists a
     LEFT JOIN genre_artist ga ON a.id = ga.artist_id
     WHERE ga.id IS NULL
     """
