@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class='container'>
+  <h2>
+    Artists Ordered By Genre Count:
+  </h2>
+  <p class='sql-display'>
+    SELECT a.*, count(g.id) AS genre_count
+    FROM artists a INNER JOIN genre_artist ga ON a.id = ga.artist_id
+    INNER JOIN genres g ON ga.genre_id = g.id
+    GROUP BY a.id ORDER BY genre_count DESC
+  </p>
+  {{ df_html|safe }}
+</div>
+{% endblock content %}

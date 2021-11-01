@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class='container'>
+  <h2>
+    Artists in Genre: {{ genre_name }}
+  </h2>
+  <p class='sql-display'>
+    SELECT a.* FROM artists AS a
+    INNER JOIN genre_artist AS ga ON ga.artist_id = a.id
+    INNER JOIN genres AS g ON ga.genre_id = g.id
+    WHERE g.id = &lt;genre_id&gt;
+  </p>
+  {{ df_html|safe }}
+</div>
+{% endblock content %}

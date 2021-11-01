@@ -2,8 +2,6 @@ from django.urls import path
 from . import views
 
 
-# app_name = 'music_data'
-# artists_by_genre_count
 urlpatterns = [
     path("", views.index, name="max_index"),
     path(

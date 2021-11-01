@@ -80,12 +80,17 @@ def get_orphan_genres():
         return dictfetchall(cursor)
 
 
-def get_orphan_artists():
+def get_orphan_artists(limit=None, offset=None):
     sql = """
     SELECT a.* FROM artists a
     LEFT JOIN genre_artist ga ON a.id = ga.artist_id
     WHERE ga.id IS NULL
     """
+    if limit:
+        sql += " LIMIT %s"
+    if offset:
+        sql += f" OFFSET %s"
+    params = [_ for _ in [limit, offset] if _]
     with connection.cursor() as cursor:
-        cursor.execute(sql)
+        cursor.execute(sql, params)
         return dictfetchall(cursor)

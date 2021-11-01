@@ -1,28 +1,10 @@
+{% extends "base.html" %}
 
-<h2>Sample queries</h2>
-
-<ul>
-  <li>
-    <a href="{% url 'genres_by_artist' 10767 %}">Genres by artist (10767: Charles Foxx)</a>
-  </li>
-
-  <li>
-    <a href="{% url 'artists_by_genre' 2 %}">Artists by genre (2: Blues)</a>
-  </li>
-
-  <li>
-    <a href="{% url 'artists_ordered_by_genre_count' %}">Artists ordered by genre count</a>
-  </li>
-
-  <li>
-    <a href="{% url 'genres_ordered_by_artist_count' %}">Genres ordered by artist count</a>
-  </li>
-
-  <li>
-    <a href="{% url 'orphan_genres' %}">View genres without artists (orphan)</a>
-  </li>
-
-    <li>
-    <a href="{% url 'orphan_artists' %}">View artists without genres (orphan)</a>
-  </li>
-</ul>
+{% block content %}
+<div class='container'>
+  <h2>Sample queries</h2>
+  <p>
+    Select the links above to see queries with acommpanying sample data
+  </p>
+</div>
+{% endblock content %}
