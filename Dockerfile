@@ -6,10 +6,9 @@ RUN apt-get update
 RUN apt-get install -y git
 RUN git clone https://gitlab.com/sjlawson/maxdata.git
 RUN pip install --upgrade pip
-COPY requirements.txt /maxdata/
+WORKDIR /maxdata
 
 RUN pip install -r requirements.txt
-COPY . /maxdata/
 
 EXPOSE 8000
 RUN python manage.py migrate
