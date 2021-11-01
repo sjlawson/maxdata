@@ -46,7 +46,9 @@ class ModelCreationTests(TestCase):
     def test_create_genre_artist(self):
         artist = create_artist()
         genre = create_genre()
-        genre_artist = GenreArtist.objects.create(genre_id=genre.id, artist_id=artist.id)
+        genre_artist = GenreArtist.objects.create(
+            genre_id=genre.id, artist_id=artist.id
+        )
         self.assertTrue(isinstance(genre_artist, GenreArtist))
 
         # I had these fk relationships setup, but the constraint prevents importing.

@@ -10,13 +10,12 @@ Had this been a stand-alone app with no possibility of scaling further or adding
 new features or apps, Flask might also be a good choice as framework for this, since
 SQLAlchemy is a little bit more flexible regarding JOIN queries lacking foreign keys.
 """
+
+
 def dictfetchall(cursor):
     "Returns all rows from a cursor as a dict"
     desc = cursor.description
-    return [
-            dict(zip([col[0] for col in desc], row))
-            for row in cursor.fetchall()
-    ]
+    return [dict(zip([col[0] for col in desc], row)) for row in cursor.fetchall()]
 
 
 def get_genres_by_artist(artist_id):
@@ -49,9 +48,9 @@ def get_artists_ordered_by_genre_count(limit=None, offset=None):
     GROUP BY a.id ORDER BY genre_count DESC
     """
     if limit:
-        sql += ' LIMIT %s'
+        sql += " LIMIT %s"
     if offset:
-        sql += f' OFFSET %s'
+        sql += f" OFFSET %s"
     params = [_ for _ in [limit, offset] if _]
     with connection.cursor() as cursor:
         cursor.execute(sql, params)

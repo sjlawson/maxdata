@@ -6,40 +6,40 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('music_data', '0004_export_timestamp_field'),
+        ("music_data", "0004_export_timestamp_field"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='genre',
-            name='parent',
+            model_name="genre",
+            name="parent",
         ),
         migrations.RemoveField(
-            model_name='genreartist',
-            name='artist',
+            model_name="genreartist",
+            name="artist",
         ),
         migrations.RemoveField(
-            model_name='genreartist',
-            name='genre',
+            model_name="genreartist",
+            name="genre",
         ),
         migrations.AddField(
-            model_name='genre',
-            name='parent_id',
+            model_name="genre",
+            name="parent_id",
             field=models.IntegerField(null=True),
         ),
         migrations.AddField(
-            model_name='genreartist',
-            name='artist_id',
+            model_name="genreartist",
+            name="artist_id",
             field=models.IntegerField(null=True),
         ),
         migrations.AddField(
-            model_name='genreartist',
-            name='genre_id',
+            model_name="genreartist",
+            name="genre_id",
             field=models.IntegerField(null=True),
         ),
         migrations.AlterField(
-            model_name='genreartist',
-            name='export_date',
+            model_name="genreartist",
+            name="export_date",
             field=models.PositiveBigIntegerField(null=True),
         ),
     ]

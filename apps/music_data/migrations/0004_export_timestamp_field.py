@@ -9,24 +9,36 @@ from django.utils.timezone import utc
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('music_data', '0003_remove_constraint'),
+        ("music_data", "0003_remove_constraint"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='genreartist',
-            name='export_date',
-            field=models.PositiveBigIntegerField(default=int(datetime.datetime.utcnow().timestamp())),
+            model_name="genreartist",
+            name="export_date",
+            field=models.PositiveBigIntegerField(
+                default=int(datetime.datetime.utcnow().timestamp())
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='genreartist',
-            name='artist',
-            field=models.ForeignKey(db_constraint=False, on_delete=django.db.models.deletion.DO_NOTHING, related_name='genre_artists', to='music_data.artist'),
+            model_name="genreartist",
+            name="artist",
+            field=models.ForeignKey(
+                db_constraint=False,
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="genre_artists",
+                to="music_data.artist",
+            ),
         ),
         migrations.AlterField(
-            model_name='genreartist',
-            name='genre',
-            field=models.ForeignKey(db_constraint=False, on_delete=django.db.models.deletion.DO_NOTHING, related_name='genre_artists', to='music_data.genre'),
+            model_name="genreartist",
+            name="genre",
+            field=models.ForeignKey(
+                db_constraint=False,
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="genre_artists",
+                to="music_data.genre",
+            ),
         ),
     ]

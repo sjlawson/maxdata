@@ -10,12 +10,12 @@ class GenreArtist(models.Model):
     is_primary = models.BooleanField(default=True)
 
     class Meta:
-        db_table = 'genre_artist'
-        unique_together = ['genre_id', 'artist_id']
+        db_table = "genre_artist"
+        unique_together = ["genre_id", "artist_id"]
 
     @staticmethod
     def import_from_csv_dataframe(df):
-        objs = [GenreArtist(**vals) for vals in df.to_dict('records')]
+        objs = [GenreArtist(**vals) for vals in df.to_dict("records")]
         try:
             # if there's an integrity error on a bulk_create,
             # the atomic block does not close

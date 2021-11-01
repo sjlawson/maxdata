@@ -6,20 +6,20 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('music_data', '0006_alter_genre_parent_id'),
+        ("music_data", "0006_alter_genre_parent_id"),
     ]
 
     operations = [
         migrations.AlterModelTable(
-            name='artist',
-            table='artists',
+            name="artist",
+            table="artists",
         ),
         migrations.AlterModelTable(
-            name='genre',
-            table='genres',
+            name="genre",
+            table="genres",
         ),
         migrations.AlterModelTable(
-            name='genreartist',
-            table='genre_artist',
+            name="genreartist",
+            table="genre_artist",
         ),
     ]
