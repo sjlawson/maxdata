@@ -4,10 +4,10 @@ name: `maxdata`
 repository location: `https://gitlab.com/sjlawson/maxdata.git`
 
 ## Description:
-This is a fully functional Django application.
-  - Project was build with Python3.9 and Sqlite3
-  - The data and query examples are viewable without logging into the admin interface.
-  - The manager utility to import is also usable without admin authentication; will run as a utility
+This is a fully functional Django application. The goal is to demonstrate parsing CSV files of specific format to be imported into different database tables, and then to execute queries that show a handful of relationships between the data. 
+  - Project was built with Python3.9 and Sqlite3 -- could be easily modified for any SQL database
+  - The data and query examples are viewable without logging into the admin interface
+  - The manager utility to import is also usable without admin authentication; can be used as an import utility
   - When running, potentially useful SQL queries have been built-in to several Django views available from the applications main navigation menu
 
 
