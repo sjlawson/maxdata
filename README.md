@@ -12,10 +12,9 @@ This is a fully functional Django application.
 
 
 ## Installation with Docker
-1. Download the `Dockerfile` from the above repository (or clone the repository)
-2. Build container from the directory containing the Dockerfile: `docker build -t maxdata .`
-3. Run contatiner: `docker run -p 8000:8000 maxdata`
-4. Explore data by directing a web browser to `http://0.0.0.0:8000/`
+1. Run `docker build -t maxdata https://gitlab.com/sjlawson/maxdata.git#master`
+2. Run contatiner: `docker run -p 8000:8000 maxdata`
+3. Explore data by directing a web browser to `http://0.0.0.0:8000/`
 
 
 ## Installation on a host environment
